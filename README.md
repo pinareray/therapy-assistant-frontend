@@ -1,0 +1,1 @@
+# akbank-genai-frontend
