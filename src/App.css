@@ -308,3 +308,120 @@
   flex-shrink: 0;
   margin-top: 0.5rem;
 }
+
+/* ============================================
+   RESPONSIVE DESIGN - CHATBOT SAYFASI
+   ============================================ */
+
+/* Tablet ve küçük ekranlar (768px ve altı) */
+@media (max-width: 768px) {
+  .chat-page-background {
+    padding: 1rem;
+    height: calc(100vh - 60px);
+  }
+
+  .chat-window {
+    max-width: 100%;
+    height: calc(100vh - 80px);
+    max-height: none;
+    border-radius: 15px;
+  }
+
+  .chat-window .app-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .chat-window .chat-container {
+    padding: 1rem;
+  }
+
+  .chat-window .input-container {
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .chat-window .input-container input {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .chat-window .input-container button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .chat-window .message.user,
+  .chat-window .message.bot {
+    max-width: 85%;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .bot-avatar {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #667eea;
+  }
+
+  .message-wrapper {
+    gap: 0.5rem;
+  }
+}
+
+/* Mobil telefonlar (480px ve altı) */
+@media (max-width: 480px) {
+  .chat-page-background {
+    padding: 0.5rem;
+  }
+
+  .chat-window {
+    border-radius: 10px;
+    height: calc(100vh - 70px);
+  }
+
+  .chat-window .app-header {
+    padding: 1rem;
+  }
+
+  .chat-window .app-header h1 {
+    font-size: 1.1rem;
+  }
+
+  .chat-window .chat-container {
+    padding: 0.75rem;
+  }
+
+  .chat-window .input-container {
+    padding: 0.75rem;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .chat-window .input-container input {
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .chat-window .input-container button {
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+    min-width: 70px;
+  }
+
+  .chat-window .message.user,
+  .chat-window .message.bot {
+    max-width: 90%;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .bot-avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .message-wrapper {
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+}

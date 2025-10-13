@@ -52,3 +52,118 @@
   background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
+
+/* Hamburger menu butonu - varsayılan olarak gizli */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger açık olduğunda X şekline dönüşme animasyonu */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - NAVBAR
+   ============================================ */
+
+/* Tablet ve küçük ekranlar (768px ve altı) */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    left: -100%;
+    top: 60px;
+    flex-direction: column;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 100%;
+    text-align: center;
+    transition: left 0.3s ease;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    padding: 1rem 0;
+    margin: 0;
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobil telefonlar (640px ve altı) */
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+
+  .nav-logo a {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    top: 55px;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+    padding: 0.85rem;
+  }
+}
+
+/* Çok küçük ekranlar (360px ve altı) */
+@media (max-width: 360px) {
+  .navbar {
+    padding: 0 0.75rem;
+  }
+
+  .nav-logo a {
+    font-size: 1rem;
+  }
+
+  .hamburger {
+    width: 25px;
+    height: 20px;
+  }
+
+  .hamburger span {
+    height: 2.5px;
+  }
+}
