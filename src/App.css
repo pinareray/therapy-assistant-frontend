@@ -1,7 +1,4 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -39,4 +36,108 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.message {
+  max-width: 70%;
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message.user {
+  background-color: #4a90e2;
+  color: white;
+  align-self: flex-end; /* Kullanıcı mesajlarını sağa yaslar */
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+  background-color: #e9eaf0;
+  color: #333;
+  align-self: flex-start; /* Bot mesajlarını sola yaslar */
+  border-bottom-left-radius: 4px;
+}
+
+.message p {
+  margin: 0;
+}
+
+/* chat-container'a bu özelliği ekleyerek mesajları alt alta diziyoruz. */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sadece sohbet sayfası gibi dar olması gereken sayfalar için yeni bir konteyner stili */
+.chat-page-container {
+  display: flex;
+  flex-direction: column;
+  /* Navbar'ın yüksekliğini (60px) çıkararak kalan tüm yüksekliği kapla */
+  height: calc(100vh - 60px);
+  width: 100%;
+  background-color: #f7f9fc;
+}
+
+/* Sohbet sayfası header stili */
+.app-header {
+  background-color: #4a90e2;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.app-header p {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Input container stili */
+.input-container {
+  display: flex;
+  padding: 1rem;
+  background-color: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-container input:focus {
+  border-color: #4a90e2;
+}
+
+.input-container button {
+  margin-left: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input-container button:hover:not(:disabled) {
+  background-color: #357abd;
+}
+
+.input-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

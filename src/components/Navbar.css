@@ -1,0 +1,46 @@
+/* Navigasyon çubuğunun tamamını kapsayan ana stil. */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* İçerikleri iki uca yaslar */
+  align-items: center; /* Dikey olarak ortalar */
+  padding: 0 2rem;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Altına hafif bir gölge ekler */
+  width: 100%;
+  box-sizing: border-box; /* Padding ve border genişliği etkilemesin */
+}
+
+/* Sol taraftaki logo linkinin stili. */
+.nav-logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none; /* Alt çizgiyi kaldırır */
+}
+
+/* Sağ taraftaki linkleri içeren listenin stili. */
+.nav-links {
+  display: flex;
+  list-style: none; /* Madde imlerini kaldırır */
+  margin: 0;
+  padding: 0;
+}
+
+/* Her bir liste elemanının (linkin) stili. */
+.nav-links li {
+  margin-left: 1.5rem; /* Linkler arasına boşluk koyar */
+}
+
+/* Linklerin genel metin stili. */
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.2s; /* Renk değişimini yumuşatır */
+}
+
+/* Linklerin üzerine fare ile gelince rengini değiştirir. */
+.nav-links a:hover {
+  color: #007bff;
+}

@@ -1,0 +1,94 @@
+/* Ana konteyner: Sayfanın tamamını kaplar ve içeriği ortalar. */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ekranın tamamını kapla */
+  text-align: center;
+  color: #333;
+  background: radial-gradient(circle, rgba(210, 230, 240, 1) 0%, rgba(180, 210, 220, 1) 100%);
+}
+
+/* Başlık, metin ve butonları içeren ana kutu. */
+.hero-content {
+  max-width: 650px;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(5px); /* Arka planı bulanıklaştırma efekti */
+}
+
+/*  Gülen yüz emojisinin stil ayarları. */
+.hero-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite; /* Animasyonu uygula */
+}
+
+/* "ZİHNİNİZE İYİ GELEN SOHBETLER" başlığının stil ayarları. */
+.hero-content h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+/* Ana başlığın altındaki açıklama metni. */
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  color: #34495e;
+}
+
+/* Butonları yan yana dizer. */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Butonlar arasına boşluk koyar */
+}
+
+/* Genel buton stili: Tüm butonlar için ortak ayarlar. */
+.btn {
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+/*  "HEMEN SOHBET ET" butonunun dolgulu stili. */
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Birincil butonun üzerine gelince uygulanacak stil. */
+.btn-primary:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px); /* Hafif yukarı kalkma efekti */
+}
+
+/* "DAHA FAZLA BİLGİ" butonunun çerçeveli stili. */
+.btn-secondary {
+  background-color: transparent;
+  color: #3498db;
+  border: 2px solid #3498db;
+}
+
+/* İkincil butonun üzerine gelince uygulanacak stil. */
+.btn-secondary:hover {
+  background-color: #3498db;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Gülen yüz ikonu için aşağı yukarı süzülme efekti. */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
