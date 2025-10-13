@@ -5,8 +5,8 @@
   align-items: center; /* Dikey olarak ortalar */
   padding: 0 2rem;
   height: 60px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Altına hafif bir gölge ekler */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   width: 100%;
   box-sizing: border-box; /* Padding ve border genişliği etkilemesin */
 }
@@ -15,8 +15,13 @@
 .nav-logo a {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
-  text-decoration: none; /* Alt çizgiyi kaldırır */
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.nav-logo a:hover {
+  transform: scale(1.05);
 }
 
 /* Sağ taraftaki linkleri içeren listenin stili. */
@@ -35,12 +40,15 @@
 /* Linklerin genel metin stili. */
 .nav-links a {
   text-decoration: none;
-  color: #555;
+  color: #ffffff;
   font-weight: 500;
-  transition: color 0.2s; /* Renk değişimini yumuşatır */
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
 }
 
 /* Linklerin üzerine fare ile gelince rengini değiştirir. */
 .nav-links a:hover {
-  color: #007bff;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }

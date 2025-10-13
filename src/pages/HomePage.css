@@ -1,21 +1,22 @@
-/* Ana konteyner: Sayfanın tamamını kaplar ve içeriği ortalar. */
+/* Ana sayfa konteyner: Sayfanın tamamını kaplar ve içeriği ortalar. */
 .home-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh; /* Ekranın tamamını kapla */
   text-align: center;
-  color: #333;
-  background: radial-gradient(circle, rgba(210, 230, 240, 1) 0%, rgba(180, 210, 220, 1) 100%);
+  color: #2d3748;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Başlık, metin ve butonları içeren ana kutu. */
 .hero-content {
-  max-width: 650px;
-  padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  backdrop-filter: blur(5px); /* Arka planı bulanıklaştırma efekti */
+  max-width: 700px;
+  padding: 3rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 /*  Gülen yüz emojisinin stil ayarları. */
@@ -27,24 +28,28 @@
 
 /* "ZİHNİNİZE İYİ GELEN SOHBETLER" başlığının stil ayarları. */
 .hero-content h1 {
-  font-size: 3.2rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #2c3e50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Ana başlığın altındaki açıklama metni. */
 .hero-content p {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 2.5rem;
-  color: #34495e;
+  color: #4a5568;
+  font-weight: 500;
 }
 
 /* Butonları yan yana dizer. */
 .hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem; /* Butonlar arasına boşluk koyar */
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Butonlar arasına boşluk koyar */
 }
 
 /* Genel buton stili: Tüm butonlar için ortak ayarlar. */
@@ -62,33 +67,41 @@
 
 /*  "HEMEN SOHBET ET" butonunun dolgulu stili. */
 .btn-primary {
-  background-color: #3498db;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 /* Birincil butonun üzerine gelince uygulanacak stil. */
 .btn-primary:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px); /* Hafif yukarı kalkma efekti */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }
 
 /* "DAHA FAZLA BİLGİ" butonunun çerçeveli stili. */
 .btn-secondary {
   background-color: transparent;
-  color: #3498db;
-  border: 2px solid #3498db;
+  color: #667eea;
+  border: 2px solid #667eea;
 }
 
 /* İkincil butonun üzerine gelince uygulanacak stil. */
 .btn-secondary:hover {
-  background-color: #3498db;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 /* Gülen yüz ikonu için aşağı yukarı süzülme efekti. */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }

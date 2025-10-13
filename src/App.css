@@ -141,3 +141,170 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+/*Chatbot sayfası için özel stiller*/
+/* En arka katman: Tüm alanı kaplayan ve arka planı ayarlayan stil. */
+.chat-page-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px); /* Navbar yüksekliğini (60px) çıkarır */
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 100%
+  ); /* Modern mor-mavi gradient */
+  padding: 2rem; /* Kenarlardan boşluk */
+  box-sizing: border-box;
+}
+
+/* Ön katman: Ortada duran, yüzen sohbet penceresinin stili. */
+.chat-window {
+  width: 100%;
+  max-width: 900px; /* Pencerenin maksimum genişliği biraz artırıldı */
+  height: 85vh; /* Yüksekliği ekranın %85'i kadar */
+  max-height: 850px; /* Pencerenin maksimum yüksekliği */
+  background-color: #ffffff;
+  border-radius: 25px; /* Köşeleri daha yuvarlak */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); /* Daha belirgin gölge */
+  display: flex;
+  flex-direction: column; /* İçerikleri (başlık, mesajlar, input) alt alta dizer */
+  overflow: hidden; /* Köşelerdeki yuvarlaklığı korur */
+}
+
+/* Sohbet penceresinin başlığının stili. */
+.chat-window .app-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-window .app-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Sohbet penceresindeki mesaj alanının stili. */
+.chat-window .chat-container {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* Sohbet penceresindeki mesaj giriş alanının stili. */
+.chat-window .input-container {
+  display: flex;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e8e8e8;
+  flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+.chat-window .input-container input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 30px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  color: #2d3748;
+}
+
+.chat-window .input-container input::placeholder {
+  color: #a0aec0;
+}
+
+.chat-window .input-container input:focus {
+  border-color: #667eea;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.chat-window .input-container button {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.chat-window .input-container button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.chat-window .input-container button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Kullanıcı mesaj balonu: Arka planı ve rengi güncellendi. */
+.chat-window .message.user {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+  max-width: 75%;
+  padding: 1rem 1.25rem;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+
+/* Bot mesaj balonu: Arka planı ve rengi güncellendi. */
+.chat-window .message.bot {
+  background-color: #f0f0f5;
+  color: #2d3748;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 75%;
+  padding: 1rem 1.25rem;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+  border: 1px solid #e8e8ee;
+}
+
+/* Mesaj wrapper'ları - Avatar ve mesaj için */
+.message-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.message-wrapper.user {
+  justify-content: flex-end;
+}
+
+.message-wrapper.bot {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Bot avatar stili */
+.bot-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #667eea;
+  box-shadow: 0 3px 12px rgba(102, 126, 234, 0.4);
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}

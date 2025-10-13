@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import "../App.css"; // Genel stilleri buradan alacak
+import React, { useState, useEffect, useRef } from "react";
+import "../App.css";
+import aiBot from "../assets/aiBot.png";
 
 function ChatPage() {
-  // 1. STATE YÖNETİMİ
-  // 'input', kullanıcının yazdığı anlık metni tutar.
+  // Önceki adımdan gelen tüm state ve fonksiyonlar aynı kalıyor.
   const [input, setInput] = useState("");
-  // 'messages', tüm sohbet geçmişini bir dizi olarak tutar.
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -13,40 +12,35 @@ function ChatPage() {
       sender: "bot",
     },
   ]);
-  // 'isLoading', backend'den cevap beklenirken butonları pasif hale getirmek için kullanılır.
   const [isLoading, setIsLoading] = useState(false);
 
-  // 2. MESAJ GÖNDERME FONKSİYONU
+  // Sohbet konteynerinin en altına otomatik olarak kaydırmak için bir referans.
+  const chatEndRef = useRef(null);
+
+  useEffect(() => {
+    // Mesajlar her güncellendiğinde en alta kaydırır.
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const handleSendMessage = async () => {
-    // Boş mesaj gönderilmesini engeller.
     if (!input.trim()) return;
 
-    // Kullanıcının mesajını ekrana ekliyoruz.
     const userMessage = { id: Date.now(), text: input, sender: "user" };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
-    setInput(""); // Mesaj kutusunu temizliyoruz.
-    setIsLoading(true); // Yüklenme durumunu başlatıyoruz.
+    const currentInput = input;
+    setInput("");
+    setIsLoading(true);
 
     try {
-      // 3. BACKEND'E API İSTEĞİ
-      // 'fetch' ile backend'deki /chat endpoint'ine POST isteği gönderiyoruz.
       const response = await fetch("http://localhost:5001/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // Gövdeye kullanıcının sorusunu 'question' anahtarıyla ekliyoruz.
-        body: JSON.stringify({ question: input }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: currentInput }),
       });
 
-      // Yanıtın JSON formatında olduğundan emin oluyoruz.
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
-
-      // 4. BOT'UN CEVABINI EKRANA EKLEME
       const botMessage = {
         id: Date.now() + 1,
         text: data.answer,
@@ -54,7 +48,6 @@ function ChatPage() {
       };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
-      // Bir hata oluşursa, kullanıcıya bir hata mesajı gösteriyoruz.
       console.error("Hata:", error);
       const errorMessage = {
         id: Date.now() + 1,
@@ -63,40 +56,56 @@ function ChatPage() {
       };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     } finally {
-      setIsLoading(false); // Yüklenme durumunu bitiriyoruz.
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="chat-page-container">
-      <header className="app-header">
-        <h1>ZeniTalk - Psikoloji Destek Chatbot'u</h1>
-      </header>
+    // En dış katman: Tüm sayfayı kaplayan arka plan.
+    <div className="chat-page-background">
+      {/* Ön katman: Ortada duran, yüzen sohbet penceresi. */}
+      <div className="chat-window">
+        {/* Pencerenin başlığı */}
+        <header className="app-header">
+          <h1>ZeniTalk - Psikoloji Destek Chatbot'u</h1>
+        </header>
 
-      <div className="chat-container">
-        {/* 5. MESAJLARI EKRANA RENDER ETME */}
-        {messages.map((message) => (
-          <div key={message.id} className={`message ${message.sender}`}>
-            <p>{message.text}</p>
-          </div>
-        ))}
+        {/* Mesajların gösterildiği alan */}
+        <div className="chat-container">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`message-wrapper ${message.sender}`}
+            >
+              {message.sender === "bot" && (
+                <img src={aiBot} alt="AI Bot" className="bot-avatar" />
+              )}
+              <div className={`message ${message.sender}`}>
+                <p>{message.text}</p>
+              </div>
+            </div>
+          ))}
+          {/* Bu boş div, her zaman en altta kalarak otomatik kaydırmayı sağlar. */}
+          <div ref={chatEndRef} />
+        </div>
+
+        {/* Mesaj giriş alanı */}
+        <footer className="input-container">
+          <input
+            type="text"
+            placeholder={
+              isLoading ? "Cevap bekleniyor..." : "Mesajını buraya yaz..."
+            }
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+            disabled={isLoading}
+          />
+          <button onClick={handleSendMessage} disabled={isLoading}>
+            {isLoading ? "..." : "Gönder"}
+          </button>
+        </footer>
       </div>
-
-      <footer className="input-container">
-        <input
-          type="text"
-          placeholder={
-            isLoading ? "Cevap bekleniyor..." : "Mesajını buraya yaz..."
-          }
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-          disabled={isLoading}
-        />
-        <button onClick={handleSendMessage} disabled={isLoading}>
-          {isLoading ? "..." : "Gönder"}
-        </button>
-      </footer>
     </div>
   );
 }
