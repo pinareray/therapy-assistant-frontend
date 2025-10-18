@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../App.css";
-import aiBot from "../assets/aiBot.png";
+import "../App.css"; // Stil dosyamız
 
 function ChatPage() {
-  // Önceki adımdan gelen tüm state ve fonksiyonlar aynı kalıyor.
+  // Tüm state ve fonksiyonlarımız, streaming mantığıyla birlikte burada.
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -13,20 +12,30 @@ function ChatPage() {
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Sohbet konteynerinin en altına otomatik olarak kaydırmak için bir referans.
+  const [sessionId, setSessionId] = useState("");
   const chatEndRef = useRef(null);
 
+  // Session ID oluştur ve localStorage'da sakla
   useEffect(() => {
-    // Mesajlar her güncellendiğinde en alta kaydırır.
+    let currentSessionId = localStorage.getItem("session_id");
+    if (!currentSessionId) {
+      currentSessionId =
+        "user_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("session_id", currentSessionId);
+    }
+    setSessionId(currentSessionId);
+  }, []);
+
+  useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleSendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage = { id: Date.now(), text: input, sender: "user" };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+
     const currentInput = input;
     setInput("");
     setIsLoading(true);
@@ -35,7 +44,10 @@ function ChatPage() {
       const response = await fetch("http://localhost:5001/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: currentInput }),
+        body: JSON.stringify({
+          question: currentInput,
+          session_id: sessionId,
+        }),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");
@@ -60,6 +72,8 @@ function ChatPage() {
     }
   };
 
+  // --- GÜNCELLENMİŞ JSX YAPISI ---
+  // İşte burada, güzel tasarımımızı geri getiriyoruz.
   return (
     // En dış katman: Tüm sayfayı kaplayan arka plan.
     <div className="chat-page-background">
@@ -73,19 +87,10 @@ function ChatPage() {
         {/* Mesajların gösterildiği alan */}
         <div className="chat-container">
           {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`message-wrapper ${message.sender}`}
-            >
-              {message.sender === "bot" && (
-                <img src={aiBot} alt="AI Bot" className="bot-avatar" />
-              )}
-              <div className={`message ${message.sender}`}>
-                <p>{message.text}</p>
-              </div>
+            <div key={message.id} className={`message ${message.sender}`}>
+              <p>{message.text}</p>
             </div>
           ))}
-          {/* Bu boş div, her zaman en altta kalarak otomatik kaydırmayı sağlar. */}
           <div ref={chatEndRef} />
         </div>
 
