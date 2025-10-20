@@ -34,11 +34,41 @@ function ChatPage() {
     if (!input.trim() || isLoading) return;
 
     const userMessage = { id: Date.now(), text: input, sender: "user" };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    const loadingMessageId = Date.now() + 1;
+    const loadingMessage = {
+      id: loadingMessageId,
+      text: "Sorun analiz ediliyor...",
+      sender: "bot",
+      isLoading: true,
+    };
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      userMessage,
+      loadingMessage,
+    ]);
 
     const currentInput = input;
     setInput("");
     setIsLoading(true);
+
+    // Loading mesajlarını sırayla değiştir
+    const loadingTexts = [
+      "Sorun analiz ediliyor...",
+      "Cevap hazırlanıyor...",
+      "Düşünüyor...",
+    ];
+    let textIndex = 0;
+    const loadingInterval = setInterval(() => {
+      textIndex = (textIndex + 1) % loadingTexts.length;
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.id === loadingMessageId
+            ? { ...msg, text: loadingTexts[textIndex] }
+            : msg
+        )
+      );
+    }, 1500);
 
     try {
       const response = await fetch("http://localhost:5001/chat", {
@@ -53,20 +83,33 @@ function ChatPage() {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
-      const botMessage = {
-        id: Date.now() + 1,
-        text: data.answer,
-        sender: "bot",
-      };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+      // Loading interval'i temizle
+      clearInterval(loadingInterval);
+
+      // Loading mesajını gerçek cevapla değiştir
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.id === loadingMessageId
+            ? { ...msg, text: data.answer, isLoading: false }
+            : msg
+        )
+      );
     } catch (error) {
       console.error("Hata:", error);
-      const errorMessage = {
-        id: Date.now() + 1,
-        text: "Üzgünüm, bir sorun oluştu. Lütfen tekrar deneyin.",
-        sender: "bot",
-      };
-      setMessages((prevMessages) => [...prevMessages, errorMessage]);
+      clearInterval(loadingInterval);
+
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.id === loadingMessageId
+            ? {
+                ...msg,
+                text: "Üzgünüm, bir sorun oluştu. Lütfen tekrar deneyin.",
+                isLoading: false,
+              }
+            : msg
+        )
+      );
     } finally {
       setIsLoading(false);
     }
@@ -88,7 +131,16 @@ function ChatPage() {
         <div className="chat-container">
           {messages.map((message) => (
             <div key={message.id} className={`message ${message.sender}`}>
-              <p>{message.text}</p>
+              <p>
+                {message.text}
+                {message.isLoading && (
+                  <span className="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                )}
+              </p>
             </div>
           ))}
           <div ref={chatEndRef} />
@@ -103,7 +155,7 @@ function ChatPage() {
             }
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+            onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
             disabled={isLoading}
           />
           <button onClick={handleSendMessage} disabled={isLoading}>
