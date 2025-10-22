@@ -53,6 +53,189 @@
   transform: translateY(-2px);
 }
 
+/* ============================================
+   AUTH BUTTONS (Login/Register)
+   ============================================ */
+
+/* User email gösterimi */
+.nav-user-email {
+  color: white;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  padding: 0.5rem 1rem;
+}
+
+/* Login butonu */
+.nav-btn-login {
+  padding: 0.5rem 1.2rem !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  border: 2px solid white;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-btn-login:hover {
+  background-color: white !important;
+  color: #667eea !important;
+  transform: scale(1.05) !important;
+}
+
+/* Register butonu */
+.nav-btn-register {
+  padding: 0.5rem 1.2rem !important;
+  background-color: white !important;
+  color: #667eea !important;
+  border: 2px solid white;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-btn-register:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  transform: scale(1.05) !important;
+}
+
+/* Logout butonu */
+.nav-btn-logout {
+  padding: 0.5rem 1.2rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.nav-btn-logout:hover {
+  background-color: white;
+  color: #667eea;
+  transform: scale(1.05);
+}
+
+/* ============================================
+   PROFILE DROPDOWN MENU
+   ============================================ */
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.profile-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.profile-icon {
+  font-size: 1.2rem;
+}
+
+.profile-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .profile-name {
+    max-width: 80px;
+  }
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  min-width: 250px;
+  overflow: hidden;
+  z-index: 1000;
+  animation: dropdownFade 0.2s ease;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item-info {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.dropdown-name {
+  margin: 0 0 0.25rem 0;
+  font-weight: 700;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.dropdown-email {
+  margin: 0 0 0.5rem 0;
+  font-weight: 400;
+  font-size: 0.85rem;
+  opacity: 0.9;
+  word-break: break-all;
+}
+
+.dropdown-usage {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.dropdown-item-logout {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background-color: white;
+  color: #e53e3e;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.dropdown-item-logout:hover {
+  background-color: #fed7d7;
+}
+
 /* Hamburger menu butonu - varsayılan olarak gizli */
 .hamburger {
   display: none;
@@ -145,6 +328,22 @@
   .nav-links a {
     font-size: 1rem;
     padding: 0.85rem;
+  }
+
+  /* Profil dropdown mobilde */
+  .profile-dropdown {
+    width: 100%;
+  }
+
+  .profile-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
   }
 }
 
