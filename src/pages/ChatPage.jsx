@@ -3,6 +3,9 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 
+// Backend API URL - environment variable'dan al
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+
 function ChatPage() {
   // Auth context'ten user, token ve loading bilgilerini al
   const { user, token, loading } = useAuth();
@@ -97,7 +100,7 @@ function ChatPage() {
 
       console.log('📤 Request headers:', headers);
 
-      const response = await fetch("http://localhost:5001/chat", {
+      const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
